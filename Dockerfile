@@ -1,6 +1,6 @@
 FROM alpine:3.5
 
-MAINTAINER Charlie McClung <charlie@bowtie.io>
+MAINTAINER Charlie McClung <charlie@cmr1.com>
 
 RUN apk add --no-cache \
   gcc \

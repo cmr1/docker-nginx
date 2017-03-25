@@ -6,8 +6,16 @@ services:
   - docker
 
 before_install:
+  - ([ -f docker/cache.tar ] && docker load < docker/cache.tar) || echo "Docker image(s) not cached."
   - docker build -t cmr1/nginx .
   - docker run -d -p 127.0.0.1:80:80 cmr1/nginx
 
 script:
   - ./test.sh
+
+after_success:
+  - docker save cmr1/nginx $(docker history cmr1/nginx -q | grep -v "^<missing>") > docker/cache.tar
+
+cache:
+  directories:
+    - docker

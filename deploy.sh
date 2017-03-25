@@ -1,14 +1,9 @@
 #!/bin/bash
 
-if [ "$TRAVIS_BRANCH" == "master" ]; then
-  echo "Deploying master branch as 'latest'"
+function push() {
+  # Get the tag from argument to this function
+  tag="${1:-latest}"
 
-  export TRAVIS_TAG=latest;
-fi
-
-if [ -z "$TRAVIS_TAG" ]; then
-  tag="${TRAVIS_TAG:-latest}"
-  
   echo "Deploying tagged release '$tag'"
 
   # Authenticate with DockerHub
@@ -19,4 +14,10 @@ if [ -z "$TRAVIS_TAG" ]; then
   
   # Push the tagged image
   docker push cmr1/nginx:$tag
+}
+
+if [ ! -z "$TRAVIS_TAG" ]; then
+  push $TRAVIS_TAG
+elif [ "$TRAVIS_BRANCH" == "master" ]; then
+  push latest
 fi

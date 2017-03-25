@@ -18,14 +18,5 @@ script:
 - "./test.sh"
 
 after_success:
-- if [ "$TRAVIS_BRANCH" == "master" ]; then
-  echo "Deploying master branch as 'latest'"
-  export TRAVIS_TAG="latest";
-  fi
-- if [ -z "$TRAVIS_TAG" ]; then
-  echo "Deploying Tagged Release '$TRAVIS_TAG'"
-  docker login -u="$DOCKER_HUB_USERNAME" -p="$DOCKER_HUB_PASSWORD" 
-  docker tag cmr1/nginx cmr1/nginx:$TRAVIS_TAG
-  docker push cmr1/nginx:$TRAVIS_TAG;
-  fi
+- "./deploy.sh"
 

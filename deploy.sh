@@ -1,19 +1,21 @@
 #!/bin/bash
 
+REPO=cmr1/nginx
+
 function push() {
   # Get the tag from argument to this function
-  tag="${1:-latest}"
+  TAG="${1:-latest}"
 
-  echo "Deploying tagged release '$tag'"
+  echo "Deploying tagged release '$TAG'"
 
   # Authenticate with DockerHub
   docker login -u="$DOCKER_HUB_USERNAME" -p="$DOCKER_HUB_PASSWORD" 
 
   # Tag the Docker image
-  docker tag cmr1/nginx cmr1/nginx:$tag
+  docker tag $REPO:latest $REPO:$TAG
   
   # Push the tagged image
-  docker push cmr1/nginx:$tag
+  docker push $REPO:$TAG
 }
 
 if [ ! -z "$TRAVIS_TAG" ]; then

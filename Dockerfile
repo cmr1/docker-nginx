@@ -26,7 +26,8 @@ RUN ./configure \
   --with-openssl=/usr/local/openssl-1.0.2j \
   --with-debug \
   --with-http_v2_module \
-  --with-http_realip_module
+  --with-http_realip_module \
+  --with-http_sub_module
 
 RUN make && make install
 

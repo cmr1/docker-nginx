@@ -9,11 +9,11 @@ function push() {
   echo "Deploying tagged release '$TAG'"
 
   # Authenticate with DockerHub
-  docker login -u="$DOCKER_HUB_USERNAME" -p="$DOCKER_HUB_PASSWORD" 
+  docker login -u="$DOCKER_HUB_USERNAME" -p="$DOCKER_HUB_PASSWORD"
 
   # Tag the Docker image
   docker tag $REPO:latest $REPO:$TAG
-  
+
   # Push the tagged image
   docker push $REPO:$TAG
 }
